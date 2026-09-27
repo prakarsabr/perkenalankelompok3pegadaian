@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelompok 3 — Mengemaskan Indonesia</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --forest-deep:#052A1D;
+    --forest:#0B3D2E;
+    --forest-light:#155C41;
+
+    --pink-1:#FF6FB0;
+    --pink-2:#FF8FC2;
+    --pink-3:#FFB3D9;
+    --pink-4:#FFD1E8;
+    --pink-deep:#DD3E79;
+
+    --cream:#FBF8F2;
+    --ink:#1B1B1B;
+    --ink-soft:#63665F;
+
+    --onbg:#F4F1EA;
+    --onbg-soft:#BFD6C4;
+
+    --line:rgba(255,255,255,0.12);
+    --card-line:#EAE5DA;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--forest);
+    color:var(--onbg);
+    font-family:'Inter', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.15;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ---------- BACKGROUND DECOR: doodle acak, bergelombang, sinkron di seluruh halaman ---------- */
+
+  .bg-decor{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    pointer-events:none;
+  }
+
+  .bg-decor .blob{
+    position:absolute;
+    filter:blur(18px);
+    opacity:0.55;
+    mix-blend-mode:screen;
+    animation:float 16s ease-in-out infinite;
+  }
+
+  .bg-decor .blob svg{ width:100%; height:100%; display:block; }
+
+  .blob.b1{ width:360px; height:320px; top:-10%; left:-8%; animation-delay:0s; }
+  .blob.b2{ width:280px; height:260px; top:6%; right:-9%; animation-delay:-3s; }
+  .blob.b3{ width:320px; height:300px; top:36%; left:40%; animation-delay:-7s; }
+  .blob.b4{ width:240px; height:230px; top:58%; left:-9%; animation-delay:-10s; }
+  .blob.b5{ width:300px; height:280px; top:70%; right:-7%; animation-delay:-5s; }
+  .blob.b6{ width:220px; height:210px; top:92%; left:28%; animation-delay:-13s; }
+
+  @keyframes float{
+    0%,100%{ transform:translate(0,0) rotate(0deg) scale(1); }
+    33%{ transform:translate(18px,-22px) rotate(8deg) scale(1.04); }
+    66%{ transform:translate(-14px,16px) rotate(-6deg) scale(0.97); }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .bg-decor .blob{ animation:none; }
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero{
+    position:relative;
+    padding:96px 0 64px;
+  }
+
+  .hero-eyebrow{
+    display:inline-block;
+    font-size:14px;
+    font-weight:600;
+    color:var(--onbg-soft);
+    margin-bottom:18px;
+  }
+
+  .hero h1{
+    font-size:clamp(42px, 9vw, 84px);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    color:var(--onbg);
+  }
+
+  .hero .accent{
+    background:linear-gradient(90deg, var(--pink-1), var(--pink-deep));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero-tagline{
+    margin-top:20px;
+    font-size:clamp(17px, 3vw, 22px);
+    font-weight:500;
+    color:var(--onbg-soft);
+    max-width:32ch;
+  }
+
+  .hero-dots{
+    display:flex;
+    gap:10px;
+    margin-top:36px;
+  }
+
+  .hero-dots span{
+    width:14px; height:14px;
+    border-radius:50%;
+  }
+
+  .wave-divider{
+    display:block;
+    width:100%;
+    height:64px;
+    margin-top:48px;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+
+  section{
+    padding:56px 0;
+    border-top:1px solid var(--line);
+  }
+
+  .section-title{
+    font-size:clamp(26px, 4vw, 34px);
+    font-weight:700;
+    margin-bottom:12px;
+    color:var(--onbg);
+  }
+
+  .section-lead{
+    color:var(--onbg-soft);
+    max-width:60ch;
+    margin-bottom:40px;
+    font-size:16px;
+  }
+
+  /* ---------- MEMBERS ---------- */
+
+  .members-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+    gap:18px;
+  }
+
+  .member-card{
+    position:relative;
+    overflow:hidden;
+    background:var(--cream);
+    border:1px solid var(--card-line);
+    border-radius:18px;
+    padding:24px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+
+  .member-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 28px rgba(5,42,29,0.28);
+  }
+
+  .card-doodle{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    opacity:0.5;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .avatar-frame{
+    position:relative;
+    z-index:1;
+    width:76px; height:76px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+
+  .avatar-frame svg{ width:100%; height:100%; display:block; }
+
+  .member-name{
+    position:relative;
+    z-index:1;
+    font-weight:600;
+    font-size:17px;
+    color:var(--ink);
+  }
+
+  .member-unit{
+    position:relative;
+    z-index:1;
+    color:var(--ink-soft);
+    font-size:14px;
+  }
+
+  /* ---------- CASE STUDY ---------- */
+
+  .case-box{
+    background:var(--cream);
+    border:1px solid var(--card-line);
+    border-left:6px solid var(--pink-deep);
+    border-radius:14px;
+    padding:32px;
+  }
+
+  .case-label{
+    font-size:13px;
+    font-weight:600;
+    color:var(--pink-deep);
+    margin-bottom:10px;
+  }
+
+  .case-text{
+    font-size:17px;
+    color:var(--ink);
+    max-width:70ch;
+  }
+
+  /* ---------- VALUES ---------- */
+
+  .values-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+  }
+
+  .value-card{
+    background:var(--cream);
+    border:1px solid var(--card-line);
+    border-radius:18px;
+    padding:28px 24px;
+  }
+
+  .value-icon{
+    width:44px; height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    margin-bottom:18px;
+  }
+
+  .value-icon svg{ width:22px; height:22px; }
+
+  .value-title{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:8px;
+    color:var(--ink);
+  }
+
+  .value-desc{
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  footer{
+    padding:40px 0 56px;
+    text-align:center;
+    color:var(--onbg-soft);
+    font-size:14px;
+    position:relative;
+    z-index:2;
+  }
+
+  footer .bar{
+    height:6px;
+    width:100%;
+    border-radius:99px;
+    background:linear-gradient(90deg, var(--pink-4), var(--pink-1), var(--pink-deep));
+    margin-bottom:24px;
+  }
+
+  @media (max-width:560px){
+    .hero{ padding:64px 0 40px; }
+    section{ padding:44px 0; }
+    .case-box{ padding:22px; }
+    .bg-decor .blob{ filter:blur(14px); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg-decor" aria-hidden="true">
+
+    <div class="blob b1">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="g1" cx="30%" cy="30%">
+            <stop offset="0%" stop-color="var(--pink-2)"/>
+            <stop offset="100%" stop-color="var(--pink-deep)"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#g1)" d="M55,12 C75,4 100,18 96,34 C130,28 150,55 138,72 C168,80 172,112 148,124 C160,150 138,172 112,164 C104,188 72,190 58,168 C32,178 8,158 16,132 C-8,118 -4,86 22,74 C10,50 30,20 55,12 Z"/>
+      </svg>
+    </div>
+
+    <div class="blob b2">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="g2" cx="60%" cy="40%">
+            <stop offset="0%" stop-color="var(--pink-3)"/>
+            <stop offset="100%" stop-color="var(--pink-1)"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#g2)" d="M70,10 C95,2 118,22 108,40 C142,36 158,66 134,80 C156,98 148,128 118,130 C118,156 88,170 66,154 C46,172 14,160 16,134 C-8,126 -6,94 20,82 C6,60 22,30 46,26 C50,10 62,4 70,10 Z"/>
+      </svg>
+    </div>
+
+    <div class="blob b3">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="g3" cx="40%" cy="60%">
+            <stop offset="0%" stop-color="var(--pink-1)"/>
+            <stop offset="100%" stop-color="var(--pink-deep)"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#g3)" d="M60,18 C86,6 110,24 102,42 C136,38 156,64 136,84 C162,94 160,126 132,132 C138,158 108,176 84,160 C68,182 34,176 30,150 C4,146 -6,114 18,96 C0,74 18,42 44,38 C46,20 54,14 60,18 Z"/>
+      </svg>
+    </div>
+
+    <div class="blob b4">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="g4" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="var(--pink-4)"/>
+            <stop offset="100%" stop-color="var(--pink-2)"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#g4)" d="M64,14 C88,8 106,28 96,44 C128,44 142,72 118,86 C140,102 132,130 104,132 C106,156 78,170 58,154 C40,174 10,164 12,138 C-10,128 -8,98 16,86 C0,64 18,34 42,32 C46,16 56,10 64,14 Z"/>
+      </svg>
+    </div>
+
+    <div class="blob b5">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="g5" cx="45%" cy="55%">
+            <stop offset="0%" stop-color="var(--pink-2)"/>
+            <stop offset="100%" stop-color="var(--pink-1)"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#g5)" d="M58,16 C82,6 108,20 100,38 C134,32 154,60 132,78 C158,92 154,124 126,130 C130,156 100,172 78,156 C60,178 28,170 26,144 C2,138 -8,106 16,90 C0,68 16,36 42,32 C44,16 52,12 58,16 Z"/>
+      </svg>
+    </div>
+
+    <div class="blob b6">
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="g6" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="var(--pink-3)"/>
+            <stop offset="100%" stop-color="var(--pink-deep)"/>
+          </radialGradient>
+        </defs>
+        <path fill="url(#g6)" d="M62,14 C84,6 104,22 96,38 C128,36 146,62 126,78 C150,92 144,120 118,126 C122,150 94,164 74,150 C56,170 26,162 24,138 C2,130 -6,100 16,86 C2,66 16,36 40,32 C44,16 54,10 62,14 Z"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <div class="wrap">
+    <div class="hero">
+      <p class="hero-eyebrow">Perkenalan Kelompok</p>
+      <h1>KELOMPOK <span class="accent">3</span></h1>
+      <p class="hero-tagline">Mengemaskan Indonesia</p>
+      <div class="hero-dots">
+        <span style="background:var(--pink-4)"></span>
+        <span style="background:var(--pink-3)"></span>
+        <span style="background:var(--pink-2)"></span>
+        <span style="background:var(--pink-1)"></span>
+        <span style="background:var(--pink-deep)"></span>
+      </div>
+
+      <svg class="wave-divider" viewBox="0 0 1000 80" preserveAspectRatio="none">
+        <path d="M0,40 C150,90 300,0 500,40 C700,80 850,10 1000,50 L1000,80 L0,80 Z"
+              fill="var(--pink-2)" opacity="0.25"/>
+        <path d="M0,55 C180,20 320,75 520,45 C720,15 860,60 1000,35 L1000,80 L0,80 Z"
+              fill="var(--pink-deep)" opacity="0.22"/>
+      </svg>
+    </div>
+  </div>
+
+  <section id="anggota">
+    <div class="wrap">
+      <h2 class="section-title">Anggota & Unit Kerja</h2>
+      <p class="section-lead">Lima orang, lima unit kerja, satu kelompok.</p>
+
+      <div class="members-grid">
+
+        <!-- TIA - kerudung -->
+        <div class="member-card">
+          <svg class="card-doodle" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice" style="transform:rotate(-3deg) scale(1.05)">
+            <path d="M10,40 C40,10 60,55 90,30 C115,10 140,45 170,25 C195,8 220,35 250,18" stroke="var(--pink-deep)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M20,190 C55,165 70,205 100,185 C125,168 150,198 180,178" stroke="var(--pink-1)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="255" cy="45" r="10" fill="none" stroke="var(--pink-deep)" stroke-width="3"/>
+            <path d="M240,175 l10,10 M250,175 l-10,10" stroke="var(--pink-1)" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <div class="avatar-frame" style="background:var(--pink-4)">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="40" fill="var(--pink-4)"/>
+              <path d="M40 62c-14 0-24 8-24 18h48c0-10-10-18-24-18Z" fill="var(--pink-deep)"/>
+              <path d="M18 46c0-16 9-28 22-28s22 12 22 28c0 4-2 8-4 11-2-9-6-15-18-15s-16 6-18 15c-2-3-4-7-4-11Z" fill="var(--pink-deep)"/>
+              <circle cx="40" cy="42" r="14" fill="#F0C29B"/>
+              <path d="M27 39c2-6 6-9 13-9s11 3 13 9c0 8-6 14-13 14s-13-6-13-14Z" fill="#F0C29B"/>
+              <circle cx="35" cy="41" r="1.6" fill="var(--ink)"/>
+              <circle cx="45" cy="41" r="1.6" fill="var(--ink)"/>
+              <path d="M35 48c2 2 8 2 10 0" stroke="var(--ink)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="member-name">Tia</div>
+            <div class="member-unit">Area Senen</div>
+          </div>
+        </div>
+
+        <!-- PRAKA -->
+        <div class="member-card">
+          <svg class="card-doodle" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice" style="transform:rotate(4deg) scale(1.05)">
+            <path d="M15,35 C45,55 65,15 95,38 C120,58 145,20 175,40 C200,58 225,22 255,42" stroke="var(--pink-1)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M25,185 C60,205 80,170 110,190 C135,208 160,175 190,195" stroke="var(--pink-deep)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M250,170 l14,14 M264,170 l-14,14" stroke="var(--pink-deep)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="30" cy="45" r="8" fill="none" stroke="var(--pink-1)" stroke-width="3"/>
+          </svg>
+          <div class="avatar-frame" style="background:var(--pink-3)">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="40" fill="var(--pink-3)"/>
+              <path d="M40 62c-15 0-26 9-26 18h52c0-9-11-18-26-18Z" fill="var(--forest)"/>
+              <circle cx="40" cy="40" r="15" fill="#E8B486"/>
+              <path d="M25 34c2-8 8-13 15-13s13 5 15 13c-4-2-9-3-15-3s-11 1-15 3Z" fill="var(--ink)"/>
+              <circle cx="34" cy="41" r="1.6" fill="var(--ink)"/>
+              <circle cx="46" cy="41" r="1.6" fill="var(--ink)"/>
+              <path d="M35 48c2 2 8 2 10 0" stroke="var(--ink)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="member-name">Praka</div>
+            <div class="member-unit">CP Bogor</div>
+          </div>
+        </div>
+
+        <!-- MBAH MUL - peci & kumis -->
+        <div class="member-card">
+          <svg class="card-doodle" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice" style="transform:rotate(-6deg) scale(1.08)">
+            <path d="M10,50 C35,20 55,60 85,32 C110,10 135,48 165,28 C190,10 215,42 245,24" stroke="var(--pink-2)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M20,180 C50,158 68,198 98,176 C122,158 148,192 178,170" stroke="var(--pink-1)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M255,55 l0,16 M247,63 l16,0" stroke="var(--pink-deep)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="35" cy="190" r="9" fill="none" stroke="var(--pink-deep)" stroke-width="3"/>
+          </svg>
+          <div class="avatar-frame" style="background:var(--pink-2)">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="40" fill="var(--pink-2)"/>
+              <path d="M40 62c-15 0-26 9-26 18h52c0-9-11-18-26-18Z" fill="#EFE7D8"/>
+              <circle cx="40" cy="41" r="15" fill="#E3B48A"/>
+              <path d="M27 32c3-3 8-4 13-4s10 1 13 4c0-6-6-10-13-10s-13 4-13 10Z" fill="var(--ink)"/>
+              <rect x="31" y="17" width="18" height="10" rx="2" fill="var(--ink)"/>
+              <circle cx="34" cy="42" r="1.6" fill="var(--ink)"/>
+              <circle cx="46" cy="42" r="1.6" fill="var(--ink)"/>
+              <path d="M33 48c3 2 11 2 14 0" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="member-name">Mbah Mul</div>
+            <div class="member-unit">Kanwil 8</div>
+          </div>
+        </div>
+
+        <!-- OM HIKAM - kumis & topi -->
+        <div class="member-card">
+          <svg class="card-doodle" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice" style="transform:rotate(5deg) scale(1.05)">
+            <path d="M12,42 C42,62 62,22 92,44 C118,64 142,26 172,46 C198,64 222,28 252,48" stroke="var(--pink-deep)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M18,175 C48,195 66,160 96,180 C120,198 146,165 176,185" stroke="var(--pink-2)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M245,180 l12,12 M257,180 l-12,12" stroke="var(--pink-1)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="260" cy="50" r="9" fill="none" stroke="var(--pink-1)" stroke-width="3"/>
+          </svg>
+          <div class="avatar-frame" style="background:var(--pink-1)">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="40" fill="var(--pink-1)"/>
+              <path d="M40 62c-15 0-26 9-26 18h52c0-9-11-18-26-18Z" fill="var(--forest-light)"/>
+              <circle cx="40" cy="41" r="15" fill="#E8B486"/>
+              <path d="M25 33c2-7 8-11 15-11s13 4 15 11c-1-2-3-3-5-3-3-2-7-3-10-3s-7 1-10 3c-2 0-4 1-5 3Z" fill="var(--ink)"/>
+              <path d="M24 32c3-2 6-4 16-4s13 2 16 4" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <circle cx="34" cy="42" r="1.6" fill="var(--ink)"/>
+              <circle cx="46" cy="42" r="1.6" fill="var(--ink)"/>
+              <path d="M33 49c4 2 10 2 14 0" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="member-name">Om Hikam</div>
+            <div class="member-unit">Area Jatiwaringin</div>
+          </div>
+        </div>
+
+        <!-- DIO -->
+        <div class="member-card">
+          <svg class="card-doodle" viewBox="0 0 300 220" preserveAspectRatio="xMidYMid slice" style="transform:rotate(-4deg) scale(1.06)">
+            <path d="M14,46 C44,24 64,58 94,34 C120,14 144,48 174,28 C200,10 224,42 254,22" stroke="var(--pink-1)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M22,182 C52,202 70,168 100,188 C124,204 150,172 180,192" stroke="var(--pink-deep)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="255" cy="185" r="10" fill="none" stroke="var(--pink-2)" stroke-width="3"/>
+            <path d="M25,50 l10,10 M35,50 l-10,10" stroke="var(--pink-2)" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <div class="avatar-frame" style="background:var(--pink-4)">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="40" fill="var(--pink-4)"/>
+              <path d="M40 62c-15 0-26 9-26 18h52c0-9-11-18-26-18Z" fill="var(--pink-deep)"/>
+              <circle cx="40" cy="40" r="15" fill="#F0C29B"/>
+              <path d="M25 36c1-9 8-15 15-15s14 6 15 15c-5-3-10-4-15-4s-10 1-15 4Z" fill="var(--ink)"/>
+              <circle cx="34" cy="41" r="1.6" fill="var(--ink)"/>
+              <circle cx="46" cy="41" r="1.6" fill="var(--ink)"/>
+              <path d="M35 48c2 2 8 2 10 0" stroke="var(--ink)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="member-name">Dio</div>
+            <div class="member-unit">Kanwil 8</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="studi-kasus">
+    <div class="wrap">
+      <h2 class="section-title">Studi Kasus</h2>
+      <p class="section-lead">Topik yang kami dalami bersama.</p>
+
+      <div class="case-box">
+        <p class="case-label">Reward Fee Pemasar</p>
+        <p class="case-text">
+          Kami mengangkat studi kasus mengenai skema reward fee bagi pemasar, yaitu bagaimana insentif finansial diberikan kepada tenaga pemasaran atas pencapaian target penjualan produk. Studi ini menelaah efektivitas struktur reward yang berjalan saat ini dan merumuskan rekomendasi agar pemberian fee lebih adil, transparan, dan mampu mendorong kinerja pemasar secara berkelanjutan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="nilai">
+    <div class="wrap">
+      <h2 class="section-title">Nilai Kelompok</h2>
+      <p class="section-lead">Tiga hal yang kami pegang selama bekerja bersama.</p>
+
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(255,111,176,0.15)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--pink-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="value-title">Kolaborasi</div>
+          <p class="value-desc">Setiap orang membawa unit kerjanya masing-masing, tapi keputusan selalu kami ambil bersama.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(221,62,121,0.15)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--pink-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4Z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="value-title">Integritas</div>
+          <p class="value-desc">Data dan angka kami sampaikan apa adanya, termasuk saat hasilnya tidak sesuai harapan.</p>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(255,143,194,0.18)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--pink-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6"/>
+              <path d="M10 22h4"/>
+              <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-2.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/>
+            </svg>
+          </div>
+          <div class="value-title">Inovasi</div>
+          <p class="value-desc">Kami mencoba melihat masalah lama, seperti reward fee, dengan cara pandang yang baru.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="bar"></div>
+      Kelompok 3 — Mengemaskan Indonesia
+    </div>
+  </footer>
+
+</body>
+</html>
